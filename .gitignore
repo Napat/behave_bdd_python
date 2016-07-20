@@ -87,3 +87,8 @@ ENV/
 
 # Rope project settings
 .ropeproject
+.idea/behave_bdd_python_git.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+.idea/
