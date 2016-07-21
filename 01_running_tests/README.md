@@ -1,7 +1,12 @@
 Activate virtualenv เพื่อให้สามารถใช้งานคำสั่ง behave ได้
 
+Gitbash
+```
+source venv_gitbash/Scriptes/activate
+```
 
-ทดสอบเทสฟีเจอร์ไฟล์เดี่ยวๆ
+
+ทดสอบเทสฟีเจอร์ไฟล์แบบทีละไฟล์
 ```
 $ cd "Test Group"
 Test Group$ behave test_case_1.feature
