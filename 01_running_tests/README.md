@@ -2,7 +2,7 @@ Activate virtualenv เพื่อให้สามารถใช้งาน
 
 Gitbash
 ```
-source venv_gitbash/Scriptes/activate
+$ source venv_gitbash/Scriptes/activate
 ```
 
 
