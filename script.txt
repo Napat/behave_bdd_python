@@ -1,0 +1,2 @@
+source venv_gitbash/Scripts/activate
+pip install -r requiments.txt
