@@ -1,3 +1,5 @@
+﻿[cd 01_running_tests]
+
 Activate virtualenv เพื่อให้สามารถใช้งานคำสั่ง behave ได้
 
 Gitbash
