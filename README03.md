@@ -39,38 +39,39 @@ Best practice guidelines to use `Given / When / Then / And / But`
 
 ตัวอย่างการใช้งานใน feature file (feature file example)
 
-> Feature: Buy Big Mac
-> 
-> Scenario: User buy Big Mac using credit card
-> 
-> Given I am user 
-> Given I am logged in 
-> Given I have credit card 
-> When I search for a Big Mac 
-> When I add a Big Mac to my cart 
-> Then Big Mac price should be calculated 
-> Then the tax should be calculated 
-> Then the subtotal should be correct 
-> Then the total should be correct
+```
+Feature: Buy Big Mac
 
+Scenario: User buy Big Mac using credit card
+
+Given I am user 
+Given I am logged in 
+Given I have credit card 
+When I search for a Big Mac 
+When I add a Big Mac to my cart 
+Then Big Mac price should be calculated 
+Then the tax should be calculated 
+Then the subtotal should be correct 
+Then the total should be correct
+```
 สามารถเขียนใหม่ได้ดังนี้
 
 Should be rewrite to
+```
+Feature: Buy Big Mac
 
-> Feature: Buy Big Mac
-> 
-> Scenario: User buy Big Mac using credit card
-> 
-> Given I am user 
-> And I am logged in 
-> And I have credit card 
-> When I search for a Big Mac 
-> And I add a Big Mac to my cart 
-> Then Big Mac price should be calculated 
-> And the tax should be calculated 
-> And the subtotal should be correct 
-> And the total should be correct
+Scenario: User buy Big Mac using credit card
 
+Given I am user 
+And I am logged in 
+And I have credit card 
+When I search for a Big Mac 
+And I add a Big Mac to my cart 
+Then Big Mac price should be calculated 
+And the tax should be calculated 
+And the subtotal should be correct 
+And the total should be correct
+```
 
 ### Tutorial 02 display output, And keyword and python assert failed throwing 
 
