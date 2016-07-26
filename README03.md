@@ -37,9 +37,13 @@ Best practice guidelines to use `Given / When / Then / And / But`
  -- ใช้เป็นตัวแทนของคีย์เวริด Given / When / Then ในกรณีที่ต้องการเงื่อนไขที่มีความซับซ้อนขึ้น 
  -- Represent the preceding key word Given / When / Then
 
-ตัวอย่างการใช้งานใน feature file (feature file example)
+ตัวอย่างการใช้งานใน feature file 
+
+Feature file example
 
 ```
+# sample1.feature
+
 Feature: Buy Big Mac
 
 Scenario: User buy Big Mac using credit card
@@ -58,6 +62,8 @@ Then the total should be correct
 
 Should be rewrite to
 ```
+# sample2.feature
+
 Feature: Buy Big Mac
 
 Scenario: User buy Big Mac using credit card
@@ -72,6 +78,12 @@ And the tax should be calculated
 And the subtotal should be correct 
 And the total should be correct
 ```
+
+Note
+- ใช้เครื่องหมาย # เพื่อใส่ comment ใน feature file
+- Use # sign in feature file to add comment
+
+---------------------------
 
 ### Tutorial 02 display output, And keyword and python assert failed throwing 
 
