@@ -24,6 +24,8 @@ Test Group$ behave test_case_1.feature
     2 steps passed, 0 failed, 0 skipped, 0 undefined
     Took 0m0.000s
 ```
+
+สามารถสั่งให้ยกเลิกการซ่อน stdout ในกรณีที่ไม่มี failed test ได้ด้วยการเพิ่ม `--no-capture` 
 ```
 Test Group$ behave test_case_1.feature --no-capture
 
@@ -40,8 +42,10 @@ Test Group$ behave test_case_1.feature --no-capture
     2 steps passed, 0 failed, 0 skipped, 0 undefined
     Took 0m0.003s
 ```
+
+สำหรับผู้ใช้ mac อาจมีปัญหาในการแสดงผลได้ไม่ครบหรือถูกต้อง ให้เพิ่ม option `-f plain` เข้าไป
 ```
-Test Group$ behave test_case_2.feature --no-capture
+Test Group$ behave test_case_2.feature --no-capture -f plain
 
     Feature: Test Cases Group 2 # test_case_2.feature:2
 
