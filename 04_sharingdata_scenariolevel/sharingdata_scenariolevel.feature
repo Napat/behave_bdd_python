@@ -9,7 +9,7 @@ Feature: Sharing data scenario level using context
         When I issue a refund for that order id
         Then process payment to user
 
-    Scenario: Refund should fail on a refunded item
+    Scenario: Refund should AttributeError on a refunded item
 
         When I issue a refund on the same order
         Then refund process will fail
