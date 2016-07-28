@@ -25,7 +25,7 @@ def issue_repeat_refund(context):
 #----------------------------------------------------------------------------------------------------------------------#
 @then('process payment to user')
 def payment_should_process(context):
-	if context.refund_stat == true:
+	if context.refund_stat == True:
 	    print("Payment successfully processed")
 	    print("Payment is for refund of order number: {}".format(context.order_id))
 	else:
@@ -41,4 +41,4 @@ def refund_fails(context):
 
 def refund_by_id(uid):
 	print("Refund")
-	return true
+	return True

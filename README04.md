@@ -64,15 +64,15 @@ def choose_lang_site(context, lang):
 
 ถ้าใส่ quote ชนิดใดๆเข้าไปใน step file ใน feature file จะต้องใช้ quote ชนิดนั้นๆเข้าไปด้วยเช่น
 
-But if any quote are used in step file then need to input the same quote type in feature.
+If any quote are used in step file then need to input the same quote type in feature.
 
 `
 @given('I choose "{lang}" version of the site')
 `
 
-จะต้องเขียน feature file ด้สน double quotes ดังนี้
+จะต้องเขียน feature file ด้วย double quotes ดังนี้
 
-then double quotes require,
+Then double quotes require,
 
 `
 Given I choose "Thai" version of the site
@@ -115,7 +115,83 @@ Took 0m0.001s
 ---------------------------
 
 
+## การส่งข้อมูลระหว่าง step ด้วย `context` (Share data in scenario level using `context`)
+
+โดยพื้นฐานของ Python สามารถใช้วิธีประกาศตัวแปรแบบ global เพื่อเก็บตัวแปรได้ ซึ่งวิธีดังกล่าวอาจจะใช้ได้ดีเมื่อมีเขียนไฟล์ .py แค่ไฟล์เดียว
+
+แต่เมื่อต้องทำงานกับ .py หลายๆไฟล์หรือเริ่มเขียนโปรแกรมที่มีความซับซ้อนมากขึ้น วิธีดังกล่าวจะไม่มีประสิทธิภาพ 
+ดังนั้นจึงไม่ใช่วิธีที่ดี (not good practice) ที่จะประกาศตัวแปร global เพื่อส่งค่าระหว่างแต่ละ step
+
+Sharing information between steps could use global variable thats are only good in one file.
+
+Declare global variables then not good practice to coding.
+So Behave then provides a feature that allows us to do just that. 
+
+เนื่องจากออปเจค `context` ซึ่งเป็นอาร์กิวเมนต์ตัวแรกของทุกๆฟังก์ชันของ behave จะถูกสร้างขึ้นและใช้ร่วมกันในแต่ละ scenario หนึ่งๆ 
+ดังนั้นเราสามารถใช้เก็บและส่งค่าต่างๆไปยัง step อื่นๆ ใน scenario หนึ่งๆได้
+แต่จะไม่สามารถส่งค่าข้าม scenario ผ่าน `context` ได้นะ
+
+Argiment `context` is an instance of a class and is used to store contextual data during the **Scenario level** test run. 
+Difference scenario is NOT sharing context object.
+
+ตัวอย่างการเก็บข้อมูลที่ต้องการลงใน `context`
+
+Below are the examples to store data value, 
+
+```
+context.name='Napat Rc'
+context.email='napat_joe@hotmail.com'
+```
+
+Causion:
+
+เนื่องจาก context จะมี attributes เก็บข้อมูลพื้นฐานที่ใช้สำหรับ behave อยู่ด้วย ดังนั้นห้ามใช้ชื่อตัวแปรที่ถูกใช้ไปแล้วเช่น  
+ 
+Context is storing lots of information for running the test. Avoid such keywords refer to API documentation for example,
+
+`context.feature`, `context.scenario`
+
+สามารถดูชื่อ attributes ที่ behave ใช้งานอยู่แล้วได้จาก  (List of bahave Context attributes) 
+https://pythonhosted.org/behave/api.html#detecting-that-user-code-overwrites-behave-context-attributes
 
 
+### Tutorial 04 Share data in scenario level using `context`
 
+```
+$ behave --no-capture
+Feature: Sharing data scenario level using context # sharingdata_scenariolevel.feature:4
 
+  Scenario: Process refund by order id      # sharingdata_scenariolevel.feature:6
+    Given I find order id from database     # steps\steps_sharingdata.py:5
+Finding an order from the database....
+Found an orders. Order number: 12481632
+    When I issue a refund for that order id # steps\steps_sharingdata.py:14
+Trying to issue a refund for order number: 12481632
+Refund
+    Then process payment to user            # steps\steps_sharingdata.py:26
+Payment successfully processed
+Payment is for refund of order number: 12481632
+
+  Scenario: Refund should fail on a refunded item  # sharingdata_scenariolevel.feature:12
+    When I issue a refund on the same order        # steps\steps_sharingdata.py:20
+      Traceback (most recent call last):
+        File "d:\workdir\learnbddgherkinwithpython\behave_bdd_python_git\venv_gitbash\lib\site-packages\behave\model.py", line 1456, in run
+          match.run(runner.context)
+        File "d:\workdir\learnbddgherkinwithpython\behave_bdd_python_git\venv_gitbash\lib\site-packages\behave\model.py", line 1903, in run
+          self.func(context, *args, **kwargs)
+        File "steps\steps_sharingdata.py", line 23, in issue_repeat_refund
+          print("Trying to issue refund on same order: {}".format(context.order_id))
+        File "d:\workdir\learnbddgherkinwithpython\behave_bdd_python_git\venv_gitbash\lib\site-packages\behave\runner.py", line 214, in __getattr__
+          raise AttributeError(msg)
+      AttributeError: 'Context' object has no attribute 'order_id'
+
+    Then refund process will fail                  # None
+
+Failing scenarios:
+  sharingdata_scenariolevel.feature:12  Refund should fail on a refunded item
+
+0 features passed, 1 failed, 0 skipped
+1 scenario passed, 1 failed, 0 skipped
+3 steps passed, 1 failed, 1 skipped, 0 undefined
+Took 0m0.001s
+```
